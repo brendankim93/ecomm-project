@@ -1,0 +1,8 @@
+{
+  "name": "ecomm-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/brendankim93/ecomm-project.git",
+  "author": "brendankim93 <31469167+brendankim93@users.noreply.github.com>",
+  "license": "MIT"
+}
