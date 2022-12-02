@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-import { auth } from '../../firebase/firebase.utils';
+import { UserContext } from '../../contexts/user.context';
+import { CartContext } from '../../contexts/cart.context';
+
+import { signOutUser } from "../../utils/firebase/firebase.utils";
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser }) => (
+const Header = () => {
+const { currentUser } = useContext(UserContext);
+console.log(currentUser)
+
+const signOutHandler = async () => {
+    await signOutUser();
+}
+
+const { isCartOpen, setCartOpen } = useContext(CartContext);
+return (
     <div className='header'>
         <Link className='logo-container' to='/'>
             <Logo className='logo' />
@@ -20,14 +34,17 @@ const Header = ({ currentUser }) => (
             </Link>
             {
               currentUser ? (
-              <div className='option' onClick={() => auth.signOut()}>
+              <span className='option' onClick={signOutHandler}>
                   SIGN OUT
-              </div>
+              </span>
               ) : ( 
-              <Link className='option' to='/signin'>SIGN IN</Link>
+              <Link className='option' to='/auth'>SIGN IN</Link>
             )}
+            <CartIcon />
         </div>
+       {isCartOpen && <CartDropdown />}
     </div>
-);
+    );
+}
 
 export default Header;
