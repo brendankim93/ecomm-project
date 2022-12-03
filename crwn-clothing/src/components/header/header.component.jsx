@@ -19,7 +19,7 @@ const signOutHandler = async () => {
     await signOutUser();
 }
 
-const { isCartOpen, setCartOpen } = useContext(CartContext);
+const { isCartOpen } = useContext(CartContext);
 return (
     <div className='header'>
         <Link className='logo-container' to='/'>
