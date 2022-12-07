@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 
-import { MenuItemContainer, BackgroundImage, Content, Title, Subtitle } from './menu-item.styles.jsx';
+import { MenuItemContainer, BackgroundImage, Body } from './menu-item.styles.jsx';
 
 export const withRouter = (Component) =>{
     const Wrapper = (props) =>{
@@ -11,17 +11,19 @@ export const withRouter = (Component) =>{
     return Wrapper;
 }
 
-const MenuItem = ({ title, imageUrl, route }) => {
+const MenuItem = ({ category }) => {
     const navigate = useNavigate();
+
+    const { title, imageUrl, route, size } = category;
 
     const onNavigateHandler = () => navigate(route);
     return (
-        <MenuItemContainer onClick={onNavigateHandler}>
-        <BackgroundImage imageUrl={imageUrl} />
-                <Content>
-                    <Title>{title.toUpperCase()}</Title>
-                    <Subtitle>SHOP NOW</Subtitle>
-                </Content>
+        <MenuItemContainer size ={size} onClick={onNavigateHandler}>
+            <BackgroundImage imageUrl={imageUrl} />
+                <Body>
+                    <h2>{title.toUpperCase()}</h2>
+                    <p>SHOP NOW</p>
+                </Body>
         </MenuItemContainer>
     )
 }
