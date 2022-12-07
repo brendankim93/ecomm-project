@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import { UserContext } from '../../contexts/user.context';
@@ -9,7 +8,7 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
-import './header.styles.scss';
+import { HeaderContainer, LogoContainer, Options, Option } from './header.styles.jsx';
 
 const Header = () => {
 const { currentUser } = useContext(UserContext);
@@ -21,29 +20,29 @@ const signOutHandler = async () => {
 
 const { isCartOpen } = useContext(CartContext);
 return (
-    <div className='header'>
-        <Link className='logo-container' to='/'>
-            <Logo className='logo' />
-        </Link>
-        <div className='options'>
-            <Link className='option' to='/shop'>
-                SHOP
-            </Link>
-            <Link className='option' to='/shop'>
-                CONTACT
-            </Link>
-            {
-              currentUser ? (
-              <span className='option' onClick={signOutHandler}>
-                  SIGN OUT
-              </span>
-              ) : ( 
-              <Link className='option' to='/auth'>SIGN IN</Link>
-            )}
-            <CartIcon />
-        </div>
-       {isCartOpen && <CartDropdown />}
-    </div>
+    <HeaderContainer>
+      <LogoContainer to='/'>
+          <Logo />
+      </LogoContainer>
+      <Options>
+          <Option to='/shop'>
+              SHOP
+          </Option>
+          <Option to='/shop'>
+              CONTACT
+          </Option>
+          {
+            currentUser ? (
+            <Option as='span' onClick={signOutHandler}>
+                SIGN OUT
+            </Option>
+            ) : ( 
+            <Option to='/auth'>SIGN IN</Option>
+          )}
+          <CartIcon />
+      </Options>
+      {isCartOpen && <CartDropdown />}
+    </HeaderContainer>
     );
 }
 

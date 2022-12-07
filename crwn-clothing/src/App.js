@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import HomePage from './routes/homepage/homepage.component';
 import Shop from './routes/shop/shop.component'; 
 import Authentication from './routes/authentication/authentication.component';
@@ -11,12 +11,12 @@ const App = () => {
     return (
       <div>
         <Header />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/shop' component={Shop} />
-          <Route path='/auth' component={Authentication} />
-          <Route path='/checkout' component={Checkout} />
-        </Switch>
+        <Routes>
+          <Route exact path='/' element={<HomePage />} />
+          <Route path='shop/*' element={<Shop />} />
+          <Route path='/auth' element={<Authentication />} />
+          <Route path='/checkout' element={<Checkout />} />
+        </Routes>
       </div>
     );
 };
