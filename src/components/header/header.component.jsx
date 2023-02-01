@@ -1,24 +1,26 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectIsCartOpen } from '../../store/cart/cart.selector';
+import { signOutStart } from '../../store/user/user.action';
 
-import { UserContext } from '../../contexts/user.context';
-import { CartContext } from '../../contexts/cart.context';
-
-import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 import { HeaderContainer, LogoContainer, Options, Option } from './header.styles.jsx';
 
 const Header = () => {
-const { currentUser } = useContext(UserContext);
-console.log(currentUser)
+const dispatch = useDispatch();
+const currentUser = useSelector(selectCurrentUser);
 
 const signOutHandler = async () => {
-    await signOutUser();
+    dispatch(signOutStart());
 }
 
-const { isCartOpen } = useContext(CartContext);
+const isCartOpen = useSelector(selectIsCartOpen);
+console.log('isCartOpen: ', isCartOpen)
 return (
     <HeaderContainer>
       <LogoContainer to='/'>
